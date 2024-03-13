@@ -180,7 +180,7 @@
         }
 
         .boxes .box > div {
-        --background: #5C8DF6;
+        --background: #f77190;
         --top: auto;
         --right: auto;
         --bottom: auto;
@@ -205,13 +205,13 @@
         }
 
         .boxes .box > div:nth-child(2) {
-        --background: #145af2;
+        --background: #FF416C;
         --right: 0;
         --rotateY: 90deg;
         }
 
         .boxes .box > div:nth-child(3) {
-        --background: #447cf5;
+        --background: #f7a3b7;
         --rotateX: -90deg;
         }
 
@@ -320,6 +320,109 @@
         #loader{
             display: none;
         }
+
+        /* Hide the default checkbox */
+        .con input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        }
+
+        .con {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        cursor: pointer;
+        font-size: 20px;
+        user-select: none;
+        border-radius: 50%;
+        background-color: white;
+        }
+
+        /* Create a custom checkbox */
+        .checkmark {
+        position: relative;
+        top: 0;
+        left: 0;
+        height: 1.3em;
+        width: 1.3em;
+        transition: .3s;
+        transform: scale(0);
+        border-radius: 50%;
+        }
+
+        /* When the checkbox is checked, add a blue background */
+        .con input:checked ~ .checkmark {
+        background-color: #20c580;
+        transform: scale(1);
+        }
+
+        /* Create the checkmark/indicator (hidden when not checked) */
+        .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+        }
+
+        /* Show the checkmark when checked */
+        .con input:checked ~ .checkmark:after {
+        display: block;
+        }
+
+        .con input:checked ~ .celebrate {
+        display: block;
+        }
+
+        /* Style the checkmark/indicator */
+        .con .checkmark:after {
+        left: 0.45em;
+        top: 0.25em;
+        width: 0.30em;
+        height: 0.5em;
+        border: solid white;
+        border-width: 0 0.15em 0.15em 0;
+        transform: rotate(45deg);
+        }
+
+        .con .celebrate {
+        position: absolute;
+        transform-origin: center;
+        animation: kfr-celebrate .4s;
+        animation-fill-mode: forwards;
+        display: none;
+        stroke: #20c580;
+        }
+
+        @keyframes kfr-celebrate {
+            0% {
+                transform: scale(0);
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1.2);
+                opacity: 0;
+                display: none;
+            }
+        }
+
+        .recheckBtn{
+            margin-top: 20%;
+           margin-left: 62%
+        }
+
+        .successDiv,.failDiv{
+            display: none;
+        }
+        .inner-container{
+            font-weight: 650px;
+            /* height: 50%; */
+            /* width: 90%; */
+        }
     </style>
 </head>
 <body>
@@ -337,6 +440,28 @@
             @csrf
             <div class="inner-container">
 
+                <div class="successDiv" id="successDiv">
+                <h1 >Transported successfully</h1>
+                <label class="con">
+                    <input type="checkbox" id="chkbox" >
+                    <div class="checkmark"></div>
+                    <svg width="50" height="50" xmlns="http://www.w3.org/2000/svg" class="celebrate">
+                        <polygon points="0,0 10,10"></polygon>
+                        <polygon points="0,25 10,25"></polygon>
+                        <polygon points="0,50 10,40"></polygon>
+                        <polygon points="50,0 40,10"></polygon>
+                        <polygon points="50,25 40,25"></polygon>
+                        <polygon points="50,50 40,40"></polygon>
+                      </svg>
+                  </label>
+                  <button type="button" class="recheckBtn" onclick="reCheck();">Proceed</button>
+                </div>
+
+                <div class="failDiv" id="failDiv">
+                    <h1 >Transported Failed...</h1>
+                    <button type="button" class="recheckBtn" onclick="reCheck();">Proceed</button>
+
+                </div>
                 <div class="boxes" id="loader">
                     <div class="box">
                         <div></div>
@@ -424,6 +549,31 @@
                 element.style.display = 'none';
             });
 
+
+            setTimeout(hideLoader, 1000);
+        }
+
+        function hideLoader() {
+            document.getElementById('loader').style.display = 'none';
+
+            document.getElementById('successDiv').style.display = 'block';
+            // document.getElementById('failDiv').style.display = 'block';
+
+
+            var chkboc =  document.getElementById('chkbox');
+            chkboc.checked = true;
+            chkboc.disabled = true;
+
+        }
+        function reCheck(){
+            document.getElementById('successDiv').style.display = 'none';
+            document.getElementById('failDiv').style.display = 'none';
+
+            var elements = document.querySelectorAll('.form-group');
+
+            elements.forEach(function(element) {
+                element.style.display = 'block';
+            });
         }
     </script>
 </body>
