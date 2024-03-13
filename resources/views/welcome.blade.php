@@ -27,7 +27,7 @@
             flex-direction: column;
             padding: 0 50px;
             height: 100%;
-            text-align: center;
+            /* text-align: center; */
         }
         .form-group {
             margin-bottom: 15px;
@@ -83,36 +83,41 @@
     <form action="" method="post">
         @csrf
 
-        <div class="form-group">
-            <label for="home_planet">Home Planet:</label>
-            <select name="home_planet" id="home_planet" class="form-control">
-                <option value="Earth">Earth</option>
-                <option value="Mars">Mars</option>
-                <option value="Europa">Europa</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="cryosleep">CryoSleep (Yes/No):</label>
-            <div class="radio">
-                <input type="radio" name="cryosleep" id="cryosleep_yes" value="Yes">
-                <label for="cryosleep_yes">Yes</label>
+        <div class="inner-container">
+            <div class="form-group">
+                <label for="home_planet">Home Planet:</label>
+                <select name="home_planet" id="home_planet" class="form-control">
+                    <option value="Earth">Earth</option>
+                    <option value="Mars">Mars</option>
+                    <option value="Europa">Europa</option>
+                </select>
             </div>
-            <div class="radio">
-                <input type="radio" name="cryosleep" id="cryosleep_no" value="No" checked>
-                <label for="cryosleep_no">No</label>
+            <div class="form-group">
+                <label for="cryosleep">CryoSleep (Yes/No):</label>
+                <div class="radio">
+                    <input type="radio" name="cryosleep" id="cryosleep_yes" value="Yes">
+                    <label for="cryosleep_yes">Yes</label>
+                </div>
+                <div class="radio">
+                    <input type="radio" name="cryosleep" id="cryosleep_no" value="No" checked>
+                    <label for="cryosleep_no">No</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="age">Age:</label>
+                <input type="number" name="age" id="age" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="cabin">Cabin:</label>
+                <input type="text" name="cabin" id="cabin" class="form-control">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Predict</button>
             </div>
         </div>
-        <div class="form-group">
-            <label for="age">Age:</label>
-            <input type="number" name="age" id="age" class="form-control">
-        </div>
-        <div class="form-group">
-            <label for="cabin">Cabin:</label>
-            <input type="text" name="cabin" id="cabin" class="form-control">
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary">Predict</button>
-        </div>
+        <div style="background-color: red"></div>
+
+
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
